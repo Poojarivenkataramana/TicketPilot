@@ -1,3 +1,6 @@
 Sprint,Model,Target Task,Accuracy,Macro Precision,Macro Recall,Macro-F1,Weighted F1
 Sprint 1 (Baseline),TF-IDF + Logistic Regression (Balanced),Queue (10 Classes),47.00%,43.42%,53.37%,46.50%,47.22%
 Sprint 1 (Baseline),TF-IDF + Logistic Regression (Balanced),Priority (3 Classes),56.55%,55.23%,56.82%,55.61%,56.80%
+Sprint 2 (Classical),Logistic Regression (Balanced),Queue (10 Classes),47.00%,43.42%,53.37%,46.50%,47.22%
+Sprint 2 (Classical),Linear SVM (LinearSVC),Queue (10 Classes),55.09%,51.63%,59.02%,54.50%,55.06%
+Sprint 2 (Classical),Multinomial Naive Bayes,Queue (10 Classes),47.00%,65.18%,36.41%,41.01%,45.36%
