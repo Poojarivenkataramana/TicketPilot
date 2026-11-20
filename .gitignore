@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+myenv/
+venv/
+ENV/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS files
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Large raw datasets (track cleaned processed data or keep raw local)
+# aa_dataset-tickets-multi-lang-5-2-50-version.csv
+# dataset-tickets-*.csv
