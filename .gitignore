@@ -18,6 +18,5 @@ ENV/
 .idea/
 .vscode/
 
-# Large raw datasets (track cleaned processed data or keep raw local)
-# aa_dataset-tickets-multi-lang-5-2-50-version.csv
-# dataset-tickets-*.csv
+# CSV datasets (keep raw and intermediate datasets local)
+*.csv
