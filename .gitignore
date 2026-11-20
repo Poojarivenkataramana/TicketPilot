@@ -18,5 +18,6 @@ ENV/
 .idea/
 .vscode/
 
-# CSV datasets (keep raw and intermediate datasets local)
+# CSV datasets (keep raw and intermediate datasets local, track results)
 *.csv
+!results_table.csv
