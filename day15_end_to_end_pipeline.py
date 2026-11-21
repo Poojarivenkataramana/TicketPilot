@@ -47,7 +47,7 @@ class TicketPilotPipeline:
         kb_path: str = "data/knowledge_base_clean.csv",
         chroma_path: str = "chroma_db",
         relevance_threshold: float = -1.0,
-        confidence_threshold: float = 0.20
+        confidence_threshold: float = 0.35
     ):
         print("=" * 70)
         print("INITIALIZING TICKETPILOT END-TO-END PIPELINE")
@@ -460,7 +460,7 @@ if __name__ == "__main__":
         kb_path="data/knowledge_base_clean.csv",
         chroma_path="chroma_db",
         relevance_threshold=-1.0,
-        confidence_threshold=0.20
+        confidence_threshold=0.35
     )
 
     results_df, summary = run_day15_benchmark(pipeline, n_tickets=20)
