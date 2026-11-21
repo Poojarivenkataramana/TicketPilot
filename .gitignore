@@ -18,6 +18,9 @@ ENV/
 .idea/
 .vscode/
 
+# Vector Database
+chroma_db/
+
 # CSV datasets and binary embeddings (keep raw/intermediate data local, track results)
 *.csv
 *.npy
