@@ -1,0 +1,34 @@
+case_id,category,expected_refusal,is_escalated,refusal_passed,found_citations,citation_validity,grounding_ratio,overall_pass,latency_ms,draft_text
+CASE-1,Technical Support (Answerable),False,False,True,"[KB-16811], [KB-16811]",True,0.7777777777777778,True,0.05412101745605469,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+To resolve PostgreSQL connection timeouts on port 5432, verify the max_connections setting in postgresql.conf and inspect pg_hba.conf to confirm client IP whitelisting [KB-16811]. Restart the database service and verify active firewall rules [KB-16811].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team"
+CASE-2,Billing Refund Policy (Answerable),False,False,True,"[KB-02475], [KB-02475]",True,0.8214285714285714,True,0.0069141387939453125,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+Duplicate charges are processed automatically within 3 to 5 business days back to the original payment method upon verification of invoice numbers [KB-02475]. Customers can view refund status directly under Billing History [KB-02475].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team"
+CASE-3,Hardware RMA (Answerable),False,False,True,"[KB-07523], [KB-07523]",True,0.7857142857142857,True,0.013113021850585938,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+Defective hardware items within the 30-day warranty window qualify for an immediate prepaid RMA shipping label [KB-07523]. Pack the item in its original box with all cables and drop it at any authorized courier depot [KB-07523].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team"
+CASE-4,Out-of-Domain Quantum Cryptography (Unanswerable),True,True,True,None,True,1.0,True,0.0,"Not enough information, escalating to a human agent."
+CASE-5,Irrelevant Distractor Context (Unanswerable),True,True,True,None,True,1.0,True,0.0007152557373046875,"Not enough information, escalating to a human agent."
+CASE-6,Insufficient Policy Context (Unanswerable),True,True,True,None,True,1.0,True,0.0,"Not enough information, escalating to a human agent."
