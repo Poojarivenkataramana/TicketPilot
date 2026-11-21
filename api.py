@@ -1,14 +1,17 @@
 """
-TicketPilot - Sprint 5 Day 21: Production FastAPI Backend
----------------------------------------------------------
+TicketPilot - Sprint 5 Day 22: Production FastAPI Backend & Decision Logger
+---------------------------------------------------------------------------
 Endpoints:
 1. POST /triage: Fast queue and priority classification with confidence score.
-2. POST /draft-reply: Grounded RAG reply drafting with citations and routing policy.
-3. GET /health: Health check, model status, and indexed vector count.
-4. GET /: API metadata and documentation links.
+2. POST /draft-reply: Grounded RAG reply drafting with citations, routing policy, and audit logging.
+3. GET /decisions: Retrieve recent audit decision logs with optional filtering.
+4. GET /decisions/stats: Real-time decision metrics (auto-draft rate, human review rate, avg latency).
+5. GET /health: Health check, model status, and indexed vector count.
+6. GET /: API metadata and documentation links.
 
 Architecture:
 - Models loaded ONCE at startup via FastAPI lifespan manager into app.state.pipeline.
+- DecisionLogger records every triage & drafting decision to logs/routing_decisions.jsonl & .csv.
 - Pydantic models for strict type validation and automatic OpenAPI Swagger docs (/docs).
 - CORS middleware enabled for seamless frontend communication.
 """
@@ -19,13 +22,14 @@ import datetime
 from contextlib import asynccontextmanager
 from typing import Dict, List, Any, Optional
 
-from fastapi import FastAPI, HTTPException, Request, status
+from fastapi import FastAPI, HTTPException, Request, Query, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-# Import pipeline & routing policy
+# Import pipeline, routing policy & decision logger
 from day15_end_to_end_pipeline import TicketPilotPipeline
 from routing_policy import evaluate_routing_policy, CONFIDENCE_THRESHOLD, RERANK_RELEVANCE_THRESHOLD
+from decision_logger import decision_logger
 
 
 # ---------------------------------------------------------------------------
@@ -105,6 +109,7 @@ class HealthResponse(BaseModel):
     kb_article_count: int
     confidence_threshold: float
     rerank_threshold: float
+    total_decisions_logged: int
     uptime_seconds: float
 
 
@@ -148,10 +153,12 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="TicketPilot API",
     description=(
-        "Production-grade Customer Support Ticket Triage and Grounded RAG Assistant.\n\n"
+        "Production-grade Customer Support Ticket Triage, Grounded RAG Assistant, and Decision Logger.\n\n"
         "**Core Capabilities**:\n"
         "- `/triage`: High-speed queue & priority classification with confidence score.\n"
         "- `/draft-reply`: Grounded RAG reply drafting with citations, guardrail refusal, and compound routing tiers.\n"
+        "- `/decisions`: Real-time audit logs of every automated decision.\n"
+        "- `/decisions/stats`: Operational KPI telemetry (auto-draft rate, human review rate, avg latency).\n"
         "- **Models Loaded Once at Startup** for sub-second real-time responsiveness."
     ),
     version="1.0.0",
@@ -181,7 +188,7 @@ async def root():
         "status": "online",
         "docs_url": "/docs",
         "redoc_url": "/redoc",
-        "description": "Customer Support Ticket Triage & Grounded RAG Assistant"
+        "description": "Customer Support Ticket Triage & Grounded RAG Assistant with Decision Logging"
     }
 
 
@@ -189,6 +196,7 @@ async def root():
 async def health(request: Request):
     """Health check endpoint reporting pipeline readiness and vector counts."""
     pipeline: TicketPilotPipeline = request.app.state.pipeline
+    stats = decision_logger.get_summary_stats()
     return HealthResponse(
         status="healthy",
         version="1.0.0",
@@ -196,6 +204,7 @@ async def health(request: Request):
         kb_article_count=len(pipeline.kb_df),
         confidence_threshold=CONFIDENCE_THRESHOLD,
         rerank_threshold=RERANK_RELEVANCE_THRESHOLD,
+        total_decisions_logged=stats["total_logged"],
         uptime_seconds=round(time.time() - START_TIME, 2)
     )
 
@@ -234,6 +243,7 @@ async def draft_reply(payload: DraftReplyRequest, request: Request):
     Step 2: End-to-End Grounded Reply Drafting.
     Executes full pipeline:
     Triage -> Scoped Hybrid Retrieval -> Cross-Encoder Reranker -> Routing Policy -> Grounded Drafting with Citations.
+    Logs every decision to logs/routing_decisions.jsonl and .csv for audit compliance.
     """
     t0 = time.perf_counter()
     pipeline: TicketPilotPipeline = request.app.state.pipeline
@@ -278,6 +288,25 @@ async def draft_reply(payload: DraftReplyRequest, request: Request):
 
     citations_list = [c.strip() for c in res["found_citations"].split(",") if c.strip() and c.strip() != "None"]
 
+    # --- SPRINT 5 DAY 22: AUDIT DECISION LOGGING ---
+    decision_logger.log_decision(
+        ticket_id=res["ticket_id"],
+        subject=payload.subject,
+        body=payload.body,
+        predicted_queue=res["pred_queue"],
+        confidence=res["confidence"],
+        predicted_priority=res["pred_priority"],
+        routing_tier=routing["tier"],
+        action=routing["action"],
+        top_kb_id=res.get("top_kb_id"),
+        rerank_score=res.get("top_rerank_score"),
+        auto_send_eligible=routing["auto_send_eligible"],
+        requires_human_approval=routing["requires_human_approval"],
+        citations=citations_list,
+        draft_text=res["draft_text"],
+        latency_ms=latency_ms
+    )
+
     return DraftReplyResponse(
         ticket_id=res["ticket_id"],
         predicted_queue=res["pred_queue"],
@@ -295,6 +324,39 @@ async def draft_reply(payload: DraftReplyRequest, request: Request):
         latency_ms=round(latency_ms, 2),
         timestamp=datetime.datetime.utcnow().isoformat() + "Z"
     )
+
+
+# ---------------------------------------------------------------------------
+# 5. Decision Audit Logs Endpoints (Day 22)
+# ---------------------------------------------------------------------------
+
+@app.get("/decisions", tags=["Decision Audit & Governance"])
+async def get_decisions(
+    limit: int = Query(default=20, ge=1, le=100, description="Max records to return"),
+    tier: Optional[str] = Query(default=None, description="Filter by routing tier (e.g. TIER_1_AUTO_DRAFT)"),
+    queue: Optional[str] = Query(default=None, description="Filter by predicted department queue")
+):
+    """
+    Retrieve recent routing decision logs with optional filtering by tier or department.
+    """
+    decisions = decision_logger.get_recent_decisions(limit=limit, tier=tier, queue=queue)
+    return {
+        "count": len(decisions),
+        "filters": {"tier": tier, "queue": queue},
+        "decisions": decisions
+    }
+
+
+@app.get("/decisions/stats", tags=["Decision Audit & Governance"])
+async def get_decision_statistics():
+    """
+    Get operational telemetry and decision summary metrics:
+    - Auto-Draft Rate vs. Human Review Rate
+    - Total tickets processed
+    - Average latency and confidence
+    - Department queue and tier distributions
+    """
+    return decision_logger.get_summary_stats()
 
 
 if __name__ == "__main__":

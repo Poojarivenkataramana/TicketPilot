@@ -9,7 +9,7 @@
       "redoc_url": "/redoc",
       "description": "Customer Support Ticket Triage & Grounded RAG Assistant"
     },
-    "latency_ms": 1.7161369323730469
+    "latency_ms": 3.2880306243896484
   },
   "health": {
     "status_code": 200,
@@ -20,9 +20,9 @@
       "kb_article_count": 17469,
       "confidence_threshold": 0.4,
       "rerank_threshold": 4.0,
-      "uptime_seconds": 2.04
+      "uptime_seconds": 6.37
     },
-    "latency_ms": 3.7488937377929688
+    "latency_ms": 39.94607925415039
   },
   "triage": {
     "status_code": 200,
@@ -31,10 +31,10 @@
       "predicted_queue": "Technical Support",
       "confidence": 0.4494,
       "predicted_priority": "high",
-      "latency_ms": 8.21,
-      "timestamp": "2026-11-21T15:05:55.405622Z"
+      "latency_ms": 27.09,
+      "timestamp": "2026-11-21T15:09:21.351741Z"
     },
-    "latency_ms": 9.25588607788086
+    "latency_ms": 28.5341739654541
   },
   "draft_reply_case_a": {
     "status_code": 200,
@@ -67,10 +67,10 @@
         "[KB-14920]"
       ],
       "grounding_audit_passed": true,
-      "latency_ms": 1301.01,
-      "timestamp": "2026-11-21T15:05:56.709317Z"
+      "latency_ms": 1600.76,
+      "timestamp": "2026-11-21T15:09:22.954346Z"
     },
-    "latency_ms": 1313.1709098815918
+    "latency_ms": 1603.4879684448242
   },
   "draft_reply_case_b": {
     "status_code": 200,
@@ -96,10 +96,10 @@
       ],
       "citations": [],
       "grounding_audit_passed": true,
-      "latency_ms": 858.21,
-      "timestamp": "2026-11-21T15:05:57.585067Z"
+      "latency_ms": 492.49,
+      "timestamp": "2026-11-21T15:09:23.450180Z"
     },
-    "latency_ms": 865.2670383453369
+    "latency_ms": 495.05090713500977
   },
   "draft_reply_case_c": {
     "status_code": 200,
@@ -125,10 +125,10 @@
       ],
       "citations": [],
       "grounding_audit_passed": true,
-      "latency_ms": 735.89,
-      "timestamp": "2026-11-21T15:05:58.322548Z"
+      "latency_ms": 542.49,
+      "timestamp": "2026-11-21T15:09:23.995006Z"
     },
-    "latency_ms": 737.3239994049072
+    "latency_ms": 546.3922023773193
   },
   "openapi": {
     "status_code": 200,
