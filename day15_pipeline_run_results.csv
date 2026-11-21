@@ -1,0 +1,162 @@
+ticket_id,subject,true_queue,pred_queue,queue_correct,confidence,true_priority,pred_priority,priority_correct,top_kb_id,top_rerank_score,decision,draft_text,is_escalated,found_citations,citation_validity,grounding_ratio,audit_pass,status,diagnosis,t_classify_ms,t_retrieve_ms,t_rerank_ms,t_draft_ms,total_latency_ms
+TEST-0001,Exploring Payment Alternatives for Digital Marketing Services,Billing and Payments,Billing and Payments,True,0.8485181499424682,medium,medium,True,KB-04833,6.9724578857421875,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+Dear [Your Name], we value your interest in our digital marketing services and appreciate your inquiry regarding the payment methods we accept [KB-04833]. We are able to process payments via credit cards, bank transfers, and online payment platforms [KB-04833]. For a comprehensive list of our accepted payment methods, I would be glad to elaborate further [KB-04833]. We also provide special rates for long-term contracts [KB-04833]. Our standard payment terms require a payment within thirty days of receiving an invoice, and there might be additional fees for specific services [KB-04833]. If you wish to discuss your payment options and needs in more detail, I can arrange a call at a time that suits you [KB-04833]. Please provide a convenient time to reach you at [Support Hotline] and I will be pleased to assist you further [KB-04833].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-04833], [KB-04833], [KB-04833], [KB-04833], [KB-04833], [KB-04833], [KB-04833]",True,0.9733333333333334,True,SUCCESS,"SUCCESS: Optimal triage, high-relevance retrieval, grounded reply drafted.",8.148193359375,453.5021781921387,409.4858169555664,0.11491775512695312,871.2537288665771
+TEST-0002,Digital Tool Malfunction,IT Support,IT Support,True,0.3316463410478338,high,high,True,KB-17324,6.2199506759643555,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+[Customer Name], I regret to hear that the digital tools are unresponsive and affecting your agency's operations [KB-17324]. We would like to assist you in resolving this issue promptly [KB-17324]. To troubleshoot effectively, please provide details about your network setup and any specific error messages you are encountering [KB-17324]. If necessary, we can schedule a call to discuss this further [KB-17324]. Kindly inform us of a convenient time for a call at [Support Hotline] [KB-17324]. We will then suggest the next steps to restore your tools' functionality [KB-17324].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-17324], [KB-17324], [KB-17324], [KB-17324], [KB-17324], [KB-17324]",True,0.8936170212765957,True,SUCCESS,"SUCCESS: Optimal triage, high-relevance retrieval, grounded reply drafted.",0.8697509765625,471.79532051086426,340.5013084411621,0.0209808349609375,813.1909370422363
+TEST-0003,Request for Information on API Integration Capabilities,Technical Support,Technical Support,True,0.189297548512861,high,low,False,KB-16952,9.000438690185547,Escalated to Human Agent,"Not enough information, escalating to a human agent.",True,None,True,1.0,True,SAFE_ESCALATION,"SAFE ESCALATION: Correct queue, but low retrieval relevance safely escalated to human.",0.9038448333740234,506.2129497528076,230.53288459777832,0.0,737.6530170440674
+TEST-0004,Reported System Failure Problem,Technical Support,Technical Support,True,0.23383234370571837,low,high,False,KB-16870,8.574369430541992,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+We have received your email concerning the system crashes on the investment data analytics platform [KB-16870]. We recognize the urgency of this matter and will prioritize it accordingly [KB-16870]. To assist you effectively, we propose scheduling a call to discuss the details of the issue and outline an action plan [KB-16870]. Please let us know your earliest availability for the call, so we can provide a detailed strategy to resolve the problem and prevent recurrence [KB-16870].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-16870], [KB-16870], [KB-16870], [KB-16870]",True,0.875,True,SUCCESS,"SUCCESS: Optimal triage, high-relevance retrieval, grounded reply drafted.",1.6269683837890625,408.8292121887207,273.9977836608887,0.016927719116210938,684.473991394043
+TEST-0005,Combine Keras and Smartsheet for Marketing Tools Integration,Product Support,Sales and Pre-Sales,False,0.2035232834701734,medium,low,False,KB-11096,0.6911400556564331,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+[Customer Name] is happy to assist with integrating Keras for Microsoft Azure investment data analytics [KB-11096]. To begin, I recommend consulting the official Azure documentation, which offers comprehensive guidance on deploying Keras models on Azure [KB-11096]. You can also find step-by-step instructions on the Azure Machine Learning website [KB-11096]. For further information and tutorials, visit the Azure website and search for Keras resources and documentation [KB-11096]. If you have specific questions or need further help, please let us know [KB-11096].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-11096], [KB-11096], [KB-11096], [KB-11096], [KB-11096]",True,0.96,True,CASCADE_ERROR,"CASCADE ERROR: Queue misclassified, driving retrieval into wrong department pool.",1.3167858123779297,156.9671630859375,277.15468406677246,0.017881393432617188,435.45985221862793
+TEST-0006,Project Integration Malfunction,Product Support,Technical Support,False,0.22771270089101425,medium,high,False,KB-08808,7.805756092071533,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+We are investigating the multiple integration failures across various platforms [KB-08808]. To better assist you, please provide details about any error messages encountered following the recent PHP 8.0 update [KB-08808]. Additionally, please share your account information; we can arrange a call at your convenience to discuss the issue further [KB-08808].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-08808], [KB-08808], [KB-08808]",True,0.84375,True,CASCADE_ERROR,"CASCADE ERROR: Queue misclassified, driving retrieval into wrong department pool.",1.0690689086914062,137.9389762878418,188.44199180603027,0.014781951904296875,327.4669647216797
+TEST-0007,Inquiry regarding IT Consulting Services,General Inquiry,Customer Service,False,0.23739212938655258,medium,medium,True,KB-07327,6.921208381652832,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+Dear [Customer Name], 
+
+Thank you for your inquiry and for considering our IT Consulting Services [KB-07327]. We offer a range of support options for server setups, including initial assessments, strategic planning, implementation, and ongoing maintenance [KB-07327]. Our consultation process usually starts with an initial inquiry, followed by a thorough needs assessment and the presentation of a proposal [KB-07327]. Once an agreement is reached, our team will swiftly manage the deployment and maintenance of the required solutions [KB-07327]. With regard to our response times, we strive to acknowledge all queries within a 24-hour period and work diligently to resolve most technical issues promptly [KB-07327]. We can also provide tailored resources and advice suited to your specific needs throughout the setup period [KB-07327]. Please do not hesitate to ask if you have more questions or if you would like to schedule a preliminary discussion [KB-07327]. We look forward to aiding you in creating a smooth and efficient server setup [KB-07327]. Best regards, 
+
+Customer Support Team 
+IT Consulting Firm 
+[Support Contact]@itfirm.com [KB-07327].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-07327], [KB-07327], [KB-07327], [KB-07327], [KB-07327], [KB-07327], [KB-07327], [KB-07327], [KB-07327]",True,0.945054945054945,True,CASCADE_ERROR,"CASCADE ERROR: Queue misclassified, driving retrieval into wrong department pool.",1.16729736328125,365.0670051574707,570.1870918273926,0.025033950805664062,936.4490509033203
+TEST-0008,Enhance Server Capacity,Service Outages and Maintenance,Service Outages and Maintenance,True,0.3196109789939527,high,high,True,KB-14566,9.842105865478516,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+We have received your request to improve the server capacity for the SaaS project management platform [KB-14566]. To better understand your requirements, we would like to know the current usage patterns and expected growth [KB-14566]. Could you please provide information on the peak usage periods and the current server specifications [KB-14566]. This will help us recommend the best course of action to enhance server capacity and improve performance [KB-14566].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-14566], [KB-14566], [KB-14566], [KB-14566]",True,0.9069767441860465,True,SUCCESS,"SUCCESS: Optimal triage, high-relevance retrieval, grounded reply drafted.",0.8912086486816406,123.99888038635254,317.7506923675537,0.0171661376953125,442.6610469818115
+TEST-0009,Investment Projections Discrepancies Identified,Returns and Exchanges,Product Support,False,0.3739044224515746,low,medium,False,KB-00853,4.4799604415893555,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+acknowledging your email regarding the discrepancies in the investment projection reports [KB-00853]. understand the urgency and how this impacts financial planning and forecasting [KB-00853]. to better assist you, could you please provide information about the recent data integration update, including any specific changes made and any error messages encountered [KB-00853]. Additionally, providing examples of the discrepancies you are experiencing, specifically which reports and data points are affected, would greatly help in investigating the issue further [KB-00853]. Thank you [KB-00853].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-00853], [KB-00853], [KB-00853], [KB-00853], [KB-00853]",True,0.8979591836734694,True,CASCADE_ERROR,"CASCADE ERROR: Queue misclassified, driving retrieval into wrong department pool.",0.8387565612792969,213.81711959838867,216.36724472045898,0.017881393432617188,431.041955947876
+TEST-0010,Request for Support in Integrating Microsoft Azure SaaS Project Management Solution,Customer Service,Technical Support,False,0.3287990898589419,medium,medium,True,KB-05030,7.959605693817139,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+We will assist with integrating the Microsoft Azure project management platform [KB-05030]. Please allow us to provide a step-by-step guide and relevant documentation [KB-05030]. We will send the detailed guide via email at your convenience [KB-05030].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-05030], [KB-05030], [KB-05030]",True,0.92,True,CASCADE_ERROR,"CASCADE ERROR: Queue misclassified, driving retrieval into wrong department pool.",1.3170242309570312,338.2279872894287,335.62278747558594,0.014066696166992188,675.1840114593506
+TEST-0011,Concern Regarding Unintended Data Disclosure,Billing and Payments,Service Outages and Maintenance,False,0.18306394766060635,high,high,True,KB-11544,1.4940136671066284,Escalated to Human Agent,"Not enough information, escalating to a human agent.",True,None,True,1.0,True,SAFE_ESCALATION,"SAFE ESCALATION: Queue misclassified, but low relevance safely escalated without hallucinating.",0.9331703186035156,413.6488437652588,523.280143737793,0.0011920928955078125,937.8640651702881
+TEST-0012,Urgent Data Analytics Software Upgrade Request,IT Support,IT Support,True,0.19485405490119745,high,medium,False,KB-16056,2.4097471237182617,Escalated to Human Agent,"Not enough information, escalating to a human agent.",True,None,True,1.0,True,SAFE_ESCALATION,"SAFE ESCALATION: Correct queue, but low retrieval relevance safely escalated to human.",0.8990764617919922,950.4458904266357,560.8611106872559,0.0,1512.2077465057373
+TEST-0013,Assistance Needed for Digital Marketing Challenges,Human Resources,Customer Service,False,0.18680853758948338,low,low,True,KB-09993,6.454021453857422,Escalated to Human Agent,"Not enough information, escalating to a human agent.",True,None,True,1.0,True,SAFE_ESCALATION,"SAFE ESCALATION: Queue misclassified, but low relevance safely escalated without hallucinating.",1.3418197631835938,368.5882091522217,520.2088356018066,0.0,890.1398181915283
+TEST-0014,Health Information Leak,Customer Service,Human Resources,False,0.3263821793431175,low,high,False,KB-12566,5.70536994934082,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+Dear [Name], we acknowledge your email regarding the potential data breach detected in the healthcare provider's system [KB-12566]. We take such incidents seriously and are committed to providing assistance to mitigate any potential damage [KB-12566]. To better understand the situation and provide effective support, we kindly request you to provide more details about the breach, including the date it was detected and the steps that have been taken thus far [KB-12566]. Additionally, it would be helpful to know the type of data that may have been compromised [KB-12566]. Once we have these details, we will be available to schedule a meeting or further discussion [KB-12566]. Thank you [KB-12566].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-12566], [KB-12566], [KB-12566], [KB-12566], [KB-12566], [KB-12566]",True,0.8909090909090909,True,CASCADE_ERROR,"CASCADE ERROR: Queue misclassified, driving retrieval into wrong department pool.",0.8568763732910156,95.4141616821289,379.09889221191406,0.02193450927734375,475.39472579956055
+TEST-0015,Assistance with Brand Engagement,Returns and Exchanges,Product Support,False,0.22236961877114597,high,high,True,KB-01202,8.697724342346191,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+Please review account [Account #], contact [Support Hotline] to discuss the decline in brand engagement [KB-01202]. We will provide assistance and help improve it [KB-01202]. Kindly provide details about the issue you are experiencing [KB-01202].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-01202], [KB-01202], [KB-01202]",True,0.782608695652174,True,CASCADE_ERROR,"CASCADE ERROR: Queue misclassified, driving retrieval into wrong department pool.",1.0979175567626953,214.58101272583008,188.03000450134277,0.014066696166992188,403.72490882873535
+TEST-0016,Assistance Needed for Digital Tools Integration Problem,General Inquiry,IT Support,False,0.34033633756457493,low,medium,False,KB-11175,5.133388519287109,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+[Customer Name], sorry to hear that the digital tools integration has failed [KB-11175]. We understand the urgency of this issue [KB-11175]. To assist further, please share details of any error messages encountered and specify the recent software updates installed [KB-11175]. We will investigate potential compatibility issues to facilitate a quick resolution [KB-11175]. If needed, we can schedule a call at [Support Hotline] to discuss this in detail [KB-11175]. Please let us know a convenient time [KB-11175]. We will keep you updated on our progress toward a solution [KB-11175].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-11175], [KB-11175], [KB-11175], [KB-11175], [KB-11175], [KB-11175], [KB-11175]",True,0.9148936170212766,True,CASCADE_ERROR,"CASCADE ERROR: Queue misclassified, driving retrieval into wrong department pool.",1.1420249938964844,312.8840923309326,244.9321746826172,0.02384185791015625,558.9840412139893
+TEST-0017,Report on Unforeseen Service Disruption,Service Outages and Maintenance,Service Outages and Maintenance,True,0.8941008362770854,medium,high,False,KB-15940,6.895151615142822,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+[Customer Name], thank you for reaching out to us about the unexpected service interruption affecting your products [KB-15940]. We apologize for any inconvenience this has caused and are happy to assist in resolving the issue [KB-15940]. We have noted that initial troubleshooting steps have been taken but the issue still persists [KB-15940]. To facilitate a more thorough investigation, could you please provide us with more details about the outage, including the time it occurred and any error messages received [KB-15940]. If necessary, we may need to schedule a call to discuss this further [KB-15940]. We are available at your convenience, please let us know [KB-15940].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-15940], [KB-15940], [KB-15940], [KB-15940], [KB-15940], [KB-15940]",True,0.9375,True,SUCCESS,"SUCCESS: Optimal triage, high-relevance retrieval, grounded reply drafted.",1.177072525024414,342.2200679779053,313.62414360046387,0.019073486328125,657.0413112640381
+TEST-0018,Cloud-Based SaaS Project Management Inquiry,Sales and Pre-Sales,Sales and Pre-Sales,True,0.3661257357254693,medium,medium,True,KB-10828,5.602115631103516,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+[Customer Name], thank you for your inquiry about scalable SaaS project management platforms [KB-10828]. We would be happy to provide detailed information on pricing and features [KB-10828]. Please feel free to call us at [Support Hotline] so we can discuss your questions regarding service options, customization, and integration in more detail [KB-10828].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-10828], [KB-10828], [KB-10828]",True,0.8709677419354839,True,SUCCESS,"SUCCESS: Optimal triage, high-relevance retrieval, grounded reply drafted.",1.149892807006836,321.66600227355957,406.613826751709,0.015020370483398438,729.4478416442871
+TEST-0019,Concerns Regarding Medical Data Security,Sales and Pre-Sales,Returns and Exchanges,False,0.1982273820614654,low,low,True,KB-04975,4.635693550109863,Escalated to Human Agent,"Not enough information, escalating to a human agent.",True,None,True,1.0,True,SAFE_ESCALATION,"SAFE ESCALATION: Queue misclassified, but low relevance safely escalated without hallucinating.",1.5227794647216797,594.980001449585,529.9568176269531,0.0,1126.4619827270508
+TEST-0020,HR System Crash During Employee Data Sync Process,Human Resources,Human Resources,True,0.9111433683394382,medium,low,False,KB-04174,8.8522367477417,Auto-Drafted Cited Reply,"Hello,
+
+Thank you for contacting customer support. We are happy to assist you with your inquiry.
+
+I have acknowledged your report concerning the HR system freeze during the employee data synchronization, which may be related to compatibility issues [KB-04174]. I will examine the Firebase logs and will reach out to you for additional assistance if necessary [KB-04174].
+
+Please let us know if you need any additional assistance or have further questions.
+
+Best regards,
+TicketPilot Support Team",False,"[KB-04174], [KB-04174]",True,0.7916666666666666,True,SUCCESS,"SUCCESS: Optimal triage, high-relevance retrieval, grounded reply drafted.",1.2810230255126953,144.73390579223633,392.3628330230713,0.013828277587890625,538.3939743041992
