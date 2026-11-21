@@ -29,3 +29,4 @@ models/distilbert*/
 !results_table.csv
 !day14_prompt_benchmark_results.csv
 !day15_pipeline_run_results.csv
+!data/eval_test_set_60.csv
