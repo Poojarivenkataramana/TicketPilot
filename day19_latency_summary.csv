@@ -1,0 +1,8 @@
+Stage,Mean_ms,Std_ms,p50_ms,p90_ms,p95_ms,p99_ms,Min_ms,Max_ms,Share_pct
+Triage Classification,0.97,0.2,0.88,1.26,1.35,1.41,0.73,1.48,0.1
+Dense Vector Retrieval,57.99,37.18,43.43,105.52,146.7,180.05,21.9,194.46,8.8
+Sparse BM25 Search,275.48,157.93,259.84,425.95,541.3,775.98,74.7,781.73,42.0
+Reciprocal Rank Fusion (RRF),0.26,0.02,0.25,0.28,0.3,0.32,0.24,0.32,0.0
+Cross-Encoder Reranking,321.77,110.36,285.2,486.78,501.88,563.71,163.62,566.41,49.0
+Grounded Drafting & Audit,0.08,0.02,0.07,0.11,0.12,0.13,0.03,0.13,0.0
+Total End-to-End Pipeline,656.55,254.26,609.16,940.19,1160.97,1387.18,306.2,1495.51,100.0
