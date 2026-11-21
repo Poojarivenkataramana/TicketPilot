@@ -35,4 +35,6 @@ models/distilbert*/
 !data/day18_scored_sheet_30.csv
 !day19_latency_summary.csv
 !day19_latency_per_ticket.csv
+!data/day24_batch_100_input.csv
+!data/day24_batch_100_results.csv
 !logs/routing_decisions.csv

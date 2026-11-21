@@ -16,6 +16,7 @@ import os
 import time
 import requests
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 
 # Fallback in-process pipeline imports if API server is offline
@@ -182,202 +183,270 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ---------------------------------------------------------------------------
-# 6. Ticket Intake Workspace
-# ---------------------------------------------------------------------------
+tab_workspace, tab_dashboard = st.tabs([
+    "✈️ Support Triage & Agent Workspace",
+    "📊 Operational Telemetry & Plotly Dashboard"
+])
 
-col_left, col_right = st.columns([1, 1], gap="large")
+with tab_workspace:
+        # ---------------------------------------------------------------------------
+        # 6. Ticket Intake Workspace
+        # ---------------------------------------------------------------------------
 
-with col_left:
-    st.markdown("### 📥 **Customer Ticket Intake**")
+    col_left, col_right = st.columns([1, 1], gap="large")
 
-    # Scenario dropdown
-    scenario_choice = st.selectbox(
-        "Load a realistic customer scenario:",
-        list(PRELOADED_SCENARIOS.keys())
-    )
+    with col_left:
+        st.markdown("### 📥 **Customer Ticket Intake**")
 
-    preset = PRELOADED_SCENARIOS[scenario_choice]
-    ticket_id_input = st.text_input("Ticket ID", value=f"TCK-{int(time.time()) % 10000:04d}")
-    subject_input = st.text_input("Subject", value=preset["subject"], placeholder="e.g. Unauthorized invoice charge on Visa card")
-    body_input = st.text_area(
-        "Customer Message Body",
-        value=preset["body"],
-        height=180,
-        placeholder="Paste full customer support message here..."
-    )
+        # Scenario dropdown
+        scenario_choice = st.selectbox(
+            "Load a realistic customer scenario:",
+            list(PRELOADED_SCENARIOS.keys())
+        )
 
-    submit_button = st.button("🚀 Process & Generate Cited Reply", type="primary", use_container_width=True)
+        preset = PRELOADED_SCENARIOS[scenario_choice]
+        ticket_id_input = st.text_input("Ticket ID", value=f"TCK-{int(time.time()) % 10000:04d}")
+        subject_input = st.text_input("Subject", value=preset["subject"], placeholder="e.g. Unauthorized invoice charge on Visa card")
+        body_input = st.text_area(
+            "Customer Message Body",
+            value=preset["body"],
+            height=180,
+            placeholder="Paste full customer support message here..."
+        )
+
+        submit_button = st.button("🚀 Process & Generate Cited Reply", type="primary", use_container_width=True)
 
 
-# ---------------------------------------------------------------------------
-# 7. Execution & Results Rendering
-# ---------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------
+    # 7. Execution & Results Rendering
+    # ---------------------------------------------------------------------------
 
-with col_right:
-    st.markdown("### 🎯 **Triage & Grounded Resolution**")
+    with col_right:
+        st.markdown("### 🎯 **Triage & Grounded Resolution**")
 
-    if submit_button:
-        if not subject_input.strip() or not body_input.strip():
-            st.warning("Please provide both a ticket subject and message body.")
-        else:
-            full_text = f"{subject_input} {body_input}"
-            ticket_dict = {
-                "ticket_id": ticket_id_input,
-                "subject": subject_input,
-                "body": body_input,
-                "text": full_text
-            }
+        if submit_button:
+            if not subject_input.strip() or not body_input.strip():
+                st.warning("Please provide both a ticket subject and message body.")
+            else:
+                full_text = f"{subject_input} {body_input}"
+                ticket_dict = {
+                    "ticket_id": ticket_id_input,
+                    "subject": subject_input,
+                    "body": body_input,
+                    "text": full_text
+                }
 
-            with st.spinner("Classifying, retrieving KB context, and evaluating routing policy..."):
-                t_start = time.perf_counter()
+                with st.spinner("Classifying, retrieving KB context, and evaluating routing policy..."):
+                    t_start = time.perf_counter()
 
-                # Strategy A: FastAPI Call
-                if "FastAPI" in backend_mode:
-                    try:
-                        resp = requests.post(
-                            "http://127.0.0.1:8000/draft-reply",
-                            json=ticket_dict,
-                            timeout=5
+                    # Strategy A: FastAPI Call
+                    if "FastAPI" in backend_mode:
+                        try:
+                            resp = requests.post(
+                                "http://127.0.0.1:8000/draft-reply",
+                                json=ticket_dict,
+                                timeout=5
+                            )
+                            if resp.status_code == 200:
+                                api_res = resp.json()
+                                pred_queue = api_res["predicted_queue"]
+                                confidence = api_res["confidence"]
+                                pred_priority = api_res["predicted_priority"]
+                                routing_tier = api_res["routing_tier"]
+                                routing_label = api_res["routing_tier_label"]
+                                action = api_res["action"]
+                                draft_text = api_res["draft_text"]
+                                citations = api_res["citations"]
+                                top_sources = api_res["top_sources"]
+                            else:
+                                st.error(f"API Error ({resp.status_code}): {resp.text}")
+                                st.stop()
+                        except Exception as e:
+                            st.info(f"FastAPI server offline ({e}). Gracefully falling back to in-process pipeline.")
+                            backend_mode = "Direct In-Process"
+
+                    # Strategy B: In-Process Pipeline Fallback
+                    if "Direct In-Process" in backend_mode:
+                        pipeline = get_cached_pipeline()
+                        res = pipeline.run_ticket(ticket_dict)
+                        routing = evaluate_routing_policy(
+                            pred_queue=res["pred_queue"],
+                            confidence=res["confidence"],
+                            pred_priority=res["pred_priority"],
+                            top_rerank_score=res["top_rerank_score"]
                         )
-                        if resp.status_code == 200:
-                            api_res = resp.json()
-                            pred_queue = api_res["predicted_queue"]
-                            confidence = api_res["confidence"]
-                            pred_priority = api_res["predicted_priority"]
-                            routing_tier = api_res["routing_tier"]
-                            routing_label = api_res["routing_tier_label"]
-                            action = api_res["action"]
-                            draft_text = api_res["draft_text"]
-                            citations = api_res["citations"]
-                            top_sources = api_res["top_sources"]
-                        else:
-                            st.error(f"API Error ({resp.status_code}): {resp.text}")
-                            st.stop()
-                    except Exception as e:
-                        st.info(f"FastAPI server offline ({e}). Gracefully falling back to in-process pipeline.")
-                        backend_mode = "Direct In-Process"
+                        pred_queue = res["pred_queue"]
+                        confidence = res["confidence"]
+                        pred_priority = res["pred_priority"]
+                        routing_tier = routing["tier"]
+                        routing_label = routing["tier_label"]
+                        action = routing["action"]
+                        draft_text = res["draft_text"]
+                        citations = [c.strip() for c in res["found_citations"].split(",") if c.strip() and c.strip() != "None"]
 
-                # Strategy B: In-Process Pipeline Fallback
-                if "Direct In-Process" in backend_mode:
-                    pipeline = get_cached_pipeline()
-                    res = pipeline.run_ticket(ticket_dict)
-                    routing = evaluate_routing_policy(
-                        pred_queue=res["pred_queue"],
-                        confidence=res["confidence"],
-                        pred_priority=res["pred_priority"],
-                        top_rerank_score=res["top_rerank_score"]
-                    )
-                    pred_queue = res["pred_queue"]
-                    confidence = res["confidence"]
-                    pred_priority = res["pred_priority"]
-                    routing_tier = routing["tier"]
-                    routing_label = routing["tier_label"]
-                    action = routing["action"]
-                    draft_text = res["draft_text"]
-                    citations = [c.strip() for c in res["found_citations"].split(",") if c.strip() and c.strip() != "None"]
-                    
-                    # Log decision
-                    decision_logger.log_decision(
-                        ticket_id=ticket_id_input,
-                        subject=subject_input,
-                        body=body_input,
-                        predicted_queue=pred_queue,
-                        confidence=confidence,
-                        predicted_priority=pred_priority,
-                        routing_tier=routing_tier,
-                        action=action,
-                        top_kb_id=res.get("top_kb_id"),
-                        rerank_score=res.get("top_rerank_score"),
-                        auto_send_eligible=routing["auto_send_eligible"],
-                        requires_human_approval=routing["requires_human_approval"],
-                        citations=citations,
-                        draft_text=draft_text,
-                        latency_ms=(time.perf_counter() - t_start) * 1000
-                    )
+                        # Log decision
+                        decision_logger.log_decision(
+                            ticket_id=ticket_id_input,
+                            subject=subject_input,
+                            body=body_input,
+                            predicted_queue=pred_queue,
+                            confidence=confidence,
+                            predicted_priority=pred_priority,
+                            routing_tier=routing_tier,
+                            action=action,
+                            top_kb_id=res.get("top_kb_id"),
+                            rerank_score=res.get("top_rerank_score"),
+                            auto_send_eligible=routing["auto_send_eligible"],
+                            requires_human_approval=routing["requires_human_approval"],
+                            citations=citations,
+                            draft_text=draft_text,
+                            latency_ms=(time.perf_counter() - t_start) * 1000
+                        )
 
-                    # Top sources
-                    top_sources = []
-                    if res.get("top_kb_id") and res["top_kb_id"] != "None":
-                        idx = pipeline.kb_id_to_idx.get(res["top_kb_id"])
-                        if idx is not None:
-                            row = pipeline.kb_df.iloc[idx]
-                            top_sources.append({
-                                "kb_id": res["top_kb_id"],
-                                "queue": row["queue"],
-                                "rerank_score": res["top_rerank_score"],
-                                "problem": row["problem"],
-                                "resolution": row["solution"]
-                            })
+                        # Top sources
+                        top_sources = []
+                        if res.get("top_kb_id") and res["top_kb_id"] != "None":
+                            idx = pipeline.kb_id_to_idx.get(res["top_kb_id"])
+                            if idx is not None:
+                                row = pipeline.kb_df.iloc[idx]
+                                top_sources.append({
+                                    "kb_id": res["top_kb_id"],
+                                    "queue": row["queue"],
+                                    "rerank_score": res["top_rerank_score"],
+                                    "problem": row["problem"],
+                                    "resolution": row["solution"]
+                                })
 
-                latency_ms = (time.perf_counter() - t_start) * 1000
+                    latency_ms = (time.perf_counter() - t_start) * 1000
 
-                # 1. Triage Metric Cards
-                m_col1, m_col2, m_col3 = st.columns(3)
-                m_col1.metric("Predicted Queue", pred_queue)
-                m_col2.metric("Priority", pred_priority.upper())
-                m_col3.metric("Confidence", f"{confidence:.1%}", delta=f"{latency_ms:.0f} ms total")
+                    # 1. Triage Metric Cards
+                    m_col1, m_col2, m_col3 = st.columns(3)
+                    m_col1.metric("Predicted Queue", pred_queue)
+                    m_col2.metric("Priority", pred_priority.upper())
+                    m_col3.metric("Confidence", f"{confidence:.1%}", delta=f"{latency_ms:.0f} ms total")
 
-                # Confidence meter
-                st.progress(float(confidence), text=f"Softmax Confidence Score: {confidence:.1%}")
+                    # Confidence meter
+                    st.progress(float(confidence), text=f"Softmax Confidence Score: {confidence:.1%}")
 
-                # 2. Routing Tier Banner
-                if routing_tier == "TIER_1_AUTO_DRAFT":
-                    st.markdown(f'<div class="badge-tier1">✅ {routing_label}: Direct Send Eligible</div>', unsafe_allow_html=True)
-                elif routing_tier == "TIER_2_EXPEDITED_REVIEW":
-                    st.markdown(f'<div class="badge-tier2">⚠️ {routing_label}: Supervisor Sign-Off Required</div>', unsafe_allow_html=True)
-                else:
-                    st.markdown(f'<div class="badge-tier3">🛡️ {routing_label}: Escalated to Specialist</div>', unsafe_allow_html=True)
+                    # 2. Routing Tier Banner
+                    if routing_tier == "TIER_1_AUTO_DRAFT":
+                        st.markdown(f'<div class="badge-tier1">✅ {routing_label}: Direct Send Eligible</div>', unsafe_allow_html=True)
+                    elif routing_tier == "TIER_2_EXPEDITED_REVIEW":
+                        st.markdown(f'<div class="badge-tier2">⚠️ {routing_label}: Supervisor Sign-Off Required</div>', unsafe_allow_html=True)
+                    else:
+                        st.markdown(f'<div class="badge-tier3">🛡️ {routing_label}: Escalated to Specialist</div>', unsafe_allow_html=True)
 
-                st.caption(f"**Operational Action**: {action}")
+                    st.caption(f"**Operational Action**: {action}")
 
-                # 3. Knowledge Base Sources Expander
-                st.markdown("#### 📚 **Grounded Knowledge Base Sources**")
-                if top_sources:
-                    for src in top_sources:
-                        score_val = src.get("rerank_score", 0.0)
-                        score_color = "green" if score_val >= 4.0 else "orange" if score_val >= 0.0 else "red"
-                        with st.expander(f"[{src['kb_id']}] {src['queue']} (Relevance Score: {score_val:+.2f})", expanded=True):
-                            st.markdown(f"**Knowledge Base Article**: `[{src['kb_id']}]`")
-                            st.markdown(f"**Problem Snippet**: {src['problem'][:140]}...")
-                            st.markdown(f"**Verified Resolution Guidance**:\n> *{src['resolution']}*")
-                else:
-                    st.info("No Knowledge Base articles passed the relevance threshold.")
+                    # 3. Knowledge Base Sources Expander
+                    st.markdown("#### 📚 **Grounded Knowledge Base Sources**")
+                    if top_sources:
+                        for src in top_sources:
+                            score_val = src.get("rerank_score", 0.0)
+                            score_color = "green" if score_val >= 4.0 else "orange" if score_val >= 0.0 else "red"
+                            with st.expander(f"[{src['kb_id']}] {src['queue']} (Relevance Score: {score_val:+.2f})", expanded=True):
+                                st.markdown(f"**Knowledge Base Article**: `[{src['kb_id']}]`")
+                                st.markdown(f"**Problem Snippet**: {src['problem'][:140]}...")
+                                st.markdown(f"**Verified Resolution Guidance**:\n> *{src['resolution']}*")
+                    else:
+                        st.info("No Knowledge Base articles passed the relevance threshold.")
 
-                # Save into session state for editable drafting
-                st.session_state["current_draft"] = draft_text
-                st.session_state["current_citations"] = citations
-                st.session_state["current_tier"] = routing_tier
+                    # Save into session state for editable drafting
+                    st.session_state["current_draft"] = draft_text
+                    st.session_state["current_citations"] = citations
+                    st.session_state["current_tier"] = routing_tier
 
+        else:
+            st.info("👈 Choose a scenario or enter customer ticket details on the left, then click **Process & Generate Cited Reply**.")
+
+
+    # ---------------------------------------------------------------------------
+    # 8. Editable Response Workspace (Full Width)
+    # ---------------------------------------------------------------------------
+
+    st.markdown("---")
+    st.markdown("### ✍️ **Agent Response Workspace (Human-in-the-Loop)**")
+
+    initial_draft = st.session_state.get(
+        "current_draft", 
+        "Awaiting ticket intake... Click 'Process & Generate Cited Reply' to populate the cited response draft."
+    )
+
+    edited_draft = st.text_area(
+        "Customer Support Email Draft (Editable)",
+        value=initial_draft,
+        height=200,
+        help="Review the grounded response, verify inline citations [KB-XXXXX], and edit as needed before sending."
+    )
+
+    col_b1, col_b2, col_b3 = st.columns([1, 1, 2])
+    with col_b1:
+        if st.button("✉️ Approve & Send to Customer", type="primary", use_container_width=True):
+            st.success("✅ Reply approved! Dispatch event logged to audit stream.")
+    with col_b2:
+        if st.button("👥 Escalate to Human Specialist", use_container_width=True):
+            st.warning("⚠️ Ticket escalated to Tier 3 human queue with context attached.")
+    with col_b3:
+        st.caption("🔒 All draft changes and dispatch decisions are permanently tracked in `logs/routing_decisions.jsonl`.")
+
+
+# ---------------------------------------------------------------------------
+# 9. Operational Telemetry & Analytics Tab
+# ---------------------------------------------------------------------------
+
+with tab_dashboard:
+    st.markdown("### 📊 **Operational Telemetry & Batch Analytics**")
+    st.markdown("Live monitoring of TicketPilot's compound routing policy across a 100-ticket stratified test batch.")
+
+    batch_csv = "data/day24_batch_100_results.csv"
+    if os.path.exists(batch_csv):
+        batch_df = pd.read_csv(batch_csv)
+        total = len(batch_df)
+        t1 = sum(batch_df["routing_tier"] == "TIER_1_AUTO_DRAFT")
+        t2 = sum(batch_df["routing_tier"] == "TIER_2_EXPEDITED_REVIEW")
+        t3 = sum(batch_df["routing_tier"] == "TIER_3_HUMAN_ASSIST")
+
+        # KPI Metrics Row
+        kpi_c1, kpi_c2, kpi_c3, kpi_c4, kpi_c5, kpi_c6 = st.columns(6)
+        kpi_c1.metric("Batch Size", total)
+        kpi_c2.metric("Auto-Draft %", f"{(t1/total)*100:.1f}%")
+        kpi_c3.metric("Expedited Review", f"{(t2/total)*100:.1f}%")
+        kpi_c4.metric("Human Assist", f"{(t3/total)*100:.1f}%")
+        kpi_c5.metric("Queue Accuracy", f"{batch_df['queue_correct'].mean():.1%}")
+        kpi_c6.metric("Median Latency", f"{batch_df['latency_ms'].median():.0f} ms")
+
+        # Embed Plotly Dashboard HTML
+        dashboard_html_path = "charts/chart24_operational_dashboard.html"
+        if os.path.exists(dashboard_html_path):
+            with open(dashboard_html_path, "r", encoding="utf-8") as f:
+                dashboard_content = f.read()
+            components.html(dashboard_content, height=1150, scrolling=True)
+
+        st.markdown("---")
+        st.markdown("#### 🔍 **Interactive 100-Ticket Batch Explorer**")
+
+        f_col1, f_col2, f_col3 = st.columns(3)
+        with f_col1:
+            selected_tier = st.multiselect("Filter by Routing Tier:", options=list(batch_df["routing_tier"].unique()), default=list(batch_df["routing_tier"].unique()))
+        with f_col2:
+            selected_queue = st.multiselect("Filter by Predicted Queue:", options=list(batch_df["predicted_queue"].unique()), default=list(batch_df["predicted_queue"].unique()))
+        with f_col3:
+            selected_priority = st.multiselect("Filter by Priority:", options=list(batch_df["predicted_priority"].unique()), default=list(batch_df["predicted_priority"].unique()))
+
+        filtered_df = batch_df[
+            batch_df["routing_tier"].isin(selected_tier) &
+            batch_df["predicted_queue"].isin(selected_queue) &
+            batch_df["predicted_priority"].isin(selected_priority)
+        ]
+
+        st.dataframe(
+            filtered_df[[
+                "ticket_id", "subject", "predicted_queue", "ground_truth_queue",
+                "queue_correct", "predicted_priority", "confidence",
+                "top_rerank_score", "routing_tier", "action", "latency_ms"
+            ]],
+            use_container_width=True,
+            height=350
+        )
     else:
-        st.info("👈 Choose a scenario or enter customer ticket details on the left, then click **Process & Generate Cited Reply**.")
-
-
-# ---------------------------------------------------------------------------
-# 8. Editable Response Workspace (Full Width)
-# ---------------------------------------------------------------------------
-
-st.markdown("---")
-st.markdown("### ✍️ **Agent Response Workspace (Human-in-the-Loop)**")
-
-initial_draft = st.session_state.get(
-    "current_draft", 
-    "Awaiting ticket intake... Click 'Process & Generate Cited Reply' to populate the cited response draft."
-)
-
-edited_draft = st.text_area(
-    "Customer Support Email Draft (Editable)",
-    value=initial_draft,
-    height=200,
-    help="Review the grounded response, verify inline citations [KB-XXXXX], and edit as needed before sending."
-)
-
-col_b1, col_b2, col_b3 = st.columns([1, 1, 2])
-with col_b1:
-    if st.button("✉️ Approve & Send to Customer", type="primary", use_container_width=True):
-        st.success("✅ Reply approved! Dispatch event logged to audit stream.")
-with col_b2:
-    if st.button("👥 Escalate to Human Specialist", use_container_width=True):
-        st.warning("⚠️ Ticket escalated to Tier 3 human queue with context attached.")
-with col_b3:
-    st.caption("🔒 All draft changes and dispatch decisions are permanently tracked in `logs/routing_decisions.jsonl`.")
+        st.info("Run `python3 day24_dashboard.py` to generate the 100-ticket operational evaluation batch.")
