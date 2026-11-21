@@ -5,3 +5,6 @@ Sprint 2 (Classical),Logistic Regression (Balanced),Queue (10 Classes),47.00%,43
 Sprint 2 (Classical),Linear SVM (LinearSVC),Queue (10 Classes),55.09%,51.63%,59.02%,54.50%,55.06%
 Sprint 2 (Classical),Multinomial Naive Bayes,Queue (10 Classes),47.00%,65.18%,36.41%,41.01%,45.36%
 Sprint 2 (Embeddings),MiniLM Embeddings + Linear SVM,Queue (10 Classes),33.55%,30.03%,40.37%,30.25%,34.15%
+Sprint 1 (Baseline),TF-IDF + Logistic Regression (Balanced) (Test Set),Queue (10 Classes),46.63%,42.91%,52.07%,45.66%,46.91%
+Sprint 2 (Classical),TF-IDF + Linear SVM (Balanced) (Test Set),Queue (10 Classes),54.32%,51.61%,58.23%,54.15%,54.36%
+Sprint 2 (Transformer),Fine-Tuned DistilBERT (Test Set),Queue (10 Classes),26.84%,26.58%,33.44%,25.28%,28.34%
