@@ -18,6 +18,7 @@ ENV/
 .idea/
 .vscode/
 
-# CSV datasets (keep raw and intermediate datasets local, track results)
+# CSV datasets and binary embeddings (keep raw/intermediate data local, track results)
 *.csv
+*.npy
 !results_table.csv
