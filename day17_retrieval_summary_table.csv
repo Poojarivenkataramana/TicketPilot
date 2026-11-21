@@ -1,0 +1,4 @@
+Retrieval Architecture,Hit Rate@1,Hit Rate@3,Hit Rate@5,MRR,Avg Latency (ms)
+Plain Vector,75.00%,90.00%,90.00%,0.8139,19.83 ms
+Hybrid Search,83.33%,90.00%,90.00%,0.8639,272.01 ms
+Hybrid + Rerank,90.00%,90.00%,91.67%,0.9033,591.90 ms

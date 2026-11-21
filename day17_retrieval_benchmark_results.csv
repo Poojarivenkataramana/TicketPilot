@@ -1,0 +1,61 @@
+eval_id,queue,subject,vector_top1_kb,vector_top1_hit,hybrid_top1_kb,hybrid_top1_hit,rerank_top1_kb,rerank_top1_score,rerank_top1_hit
+EVAL-0001,Billing and Payments,Concerns About Billing Statements,KB-13862,1,KB-13862,1,KB-13862,7.033871650695801,1
+EVAL-0002,Billing and Payments,Inquiry on Pricing for Project Management SaaS,KB-06008,1,KB-01556,1,KB-05946,8.837352752685547,1
+EVAL-0003,Returns and Exchanges,Concerns with Decreased Engagement in Recent Campaigns,KB-00079,1,KB-03131,1,KB-00079,8.351081848144531,1
+EVAL-0004,Sales and Pre-Sales,Marketing Campaigns Update,KB-05916,1,KB-05916,1,KB-05916,6.877773761749268,1
+EVAL-0005,General Inquiry,Reported Problem with Financial Data Integration,KB-17291,0,KB-17291,0,KB-17086,6.203529357910156,1
+EVAL-0006,Technical Support,Issues with Data Discrepancies in Investment Analytics Reports,KB-09208,1,KB-09208,1,KB-14922,7.475214958190918,1
+EVAL-0007,Product Support,Digital Growth Plan,KB-12141,0,KB-13854,1,KB-13161,7.153010845184326,1
+EVAL-0008,Service Outages and Maintenance,Services Issue,KB-01789,1,KB-01789,1,KB-01789,9.454833984375,1
+EVAL-0009,General Inquiry,Problem with Data Synchronization,KB-16200,1,KB-16200,1,KB-16200,7.620752811431885,1
+EVAL-0010,Technical Support,Problem with the Home Page of the Website,KB-17409,1,KB-17409,1,KB-17409,9.294921875,1
+EVAL-0011,Sales and Pre-Sales,Cloud-Based SaaS Project Management Inquiry,KB-11665,1,KB-11665,1,KB-11665,5.671908378601074,1
+EVAL-0012,Service Outages and Maintenance,Unforeseen Data Loss During Analytics,KB-06940,1,KB-06940,1,KB-06940,8.695985794067383,1
+EVAL-0013,Product Support,Problem Regarding Data Encryption,KB-07803,1,KB-07803,1,KB-10143,4.504636764526367,1
+EVAL-0014,Billing and Payments,Inquiry on Digital Strategies for Brand Growth,KB-15653,1,KB-15653,1,KB-00981,8.662862777709961,1
+EVAL-0015,Service Outages and Maintenance,Update on System Integrations,KB-08600,1,KB-08600,1,KB-13620,8.800445556640625,1
+EVAL-0016,General Inquiry,Guidance on Investment Analytics,KB-13843,1,KB-13843,1,KB-13843,6.12074089050293,1
+EVAL-0017,Customer Service,Systems for Security Breach,KB-02383,1,KB-02383,1,KB-02383,9.745804786682129,1
+EVAL-0018,Customer Service,Assistance Required for AWS Management Service Issue,KB-17315,0,KB-09337,1,KB-09337,5.954086780548096,1
+EVAL-0019,Returns and Exchanges,Investment Results Issue,KB-01087,1,KB-01087,1,KB-01087,3.7643394470214844,1
+EVAL-0020,Billing and Payments,Assistance with Digital Promotion for Udemy Courses,KB-07336,1,KB-17239,1,KB-07336,9.67193603515625,1
+EVAL-0021,Sales and Pre-Sales,Assistance Required for Azure Storage Configuration,KB-05352,0,KB-05123,0,KB-09337,1.97702157497406,0
+EVAL-0022,Human Resources,Training options for data analytics tools for staff,KB-13011,1,KB-13011,1,KB-13011,7.241119384765625,1
+EVAL-0023,Product Support,Smartsheet Microsoft Azure Integration Encounter Issues,KB-14504,1,KB-15397,1,KB-15397,9.852581024169922,1
+EVAL-0024,Technical Support,Support Inquiry for Suspected Data Breach,KB-03909,1,KB-03909,1,KB-03909,9.179180145263672,1
+EVAL-0025,IT Support,Support Query for Antivirus Update on Lenovo ThinkPad X1 Carbon,KB-08303,0,KB-11441,0,KB-13863,3.877331256866455,0
+EVAL-0026,Technical Support,Security Recommendations,KB-14444,1,KB-14444,1,KB-14444,4.589468955993652,1
+EVAL-0027,General Inquiry,Concerns Regarding Scalable SaaS Project Management,KB-05372,1,KB-05372,1,KB-05372,6.568629264831543,1
+EVAL-0028,IT Support,Updates for the Analytics Tool,KB-12185,1,KB-09854,1,KB-09854,9.236661911010742,1
+EVAL-0029,Customer Service,Report on Incident: Project Data Loss During Synchronization,KB-04289,0,KB-06925,1,KB-06925,6.518860340118408,1
+EVAL-0030,Product Support,Sudden Reduction in Digital Campaign Interaction,KB-13632,1,KB-13632,1,KB-13632,6.4470415115356445,1
+EVAL-0031,IT Support,Website crashes due to incompatible plugin versions following Magento update,KB-03189,1,KB-03189,1,KB-03189,9.721657752990723,1
+EVAL-0032,General Inquiry,Server Performance Concern,KB-05491,1,KB-05491,1,KB-02019,6.946602821350098,1
+EVAL-0033,IT Support,Problems with System Updates Today,KB-07269,0,KB-12718,0,KB-12718,4.996308326721191,0
+EVAL-0034,Technical Support,Concern Regarding Recent Security Breach,KB-03111,0,KB-06404,1,KB-06122,8.693114280700684,1
+EVAL-0035,Customer Service,JIRA Data Analytics Tools Inquiry,KB-15799,1,KB-15799,1,KB-15799,8.043305397033691,1
+EVAL-0036,Product Support,Problem with Access to Hospital Data,KB-14788,1,KB-14788,1,KB-14788,9.715120315551758,1
+EVAL-0037,Service Outages and Maintenance,Unexpected Crash of Investments Dashboard Today,KB-01176,1,KB-01176,1,KB-00189,7.329424858093262,1
+EVAL-0038,Returns and Exchanges,Support Request for Unauthorized Access Attempt in Secure Healthcare Data System,KB-02234,1,KB-02234,1,KB-02234,8.10577392578125,1
+EVAL-0039,Returns and Exchanges,Assistance with SaaS Features and Pricing,KB-11089,1,KB-11089,1,KB-11089,6.793078899383545,1
+EVAL-0040,IT Support,System Crash Incident,KB-05361,1,KB-06982,1,KB-06982,7.802134990692139,1
+EVAL-0041,Sales and Pre-Sales,Data Analytics Assistance,KB-14846,0,KB-14846,0,KB-10133,8.77957820892334,1
+EVAL-0042,Billing and Payments,Inquiry on Strategies to Boost Brand Growth Digitally,KB-06729,1,KB-11587,1,KB-16586,7.7625346183776855,1
+EVAL-0043,Human Resources,Kaspersky Support Inquiry,KB-00607,1,KB-00607,1,KB-00607,8.364994049072266,1
+EVAL-0044,Billing and Payments,Enhancing Investment Analytics Tools for Financial Firms,KB-12576,1,KB-12576,1,KB-12576,9.90198802947998,1
+EVAL-0045,Sales and Pre-Sales,Improve Data Analytics Functions,KB-11698,0,KB-03987,1,KB-03987,8.691981315612793,1
+EVAL-0046,Returns and Exchanges,Technical Support for Financial Data Analytics Tool Malfunction,KB-08789,1,KB-08789,1,KB-08789,9.664934158325195,1
+EVAL-0047,Product Support,Critical Outage in SaaS Platform,KB-07556,1,KB-07556,1,KB-07556,6.644196033477783,1
+EVAL-0048,Human Resources,Strategies for Boosting Digital Brand Growth,KB-09668,1,KB-00690,1,KB-06729,9.051097869873047,1
+EVAL-0049,Service Outages and Maintenance,Support Inquiry for System Outage,KB-08351,1,KB-08450,0,KB-08953,4.03770637512207,1
+EVAL-0050,Customer Service,Request for Updating Marketing Campaign,KB-00795,1,KB-00503,1,KB-00503,8.494674682617188,1
+EVAL-0051,Human Resources,Report of Healthcare Provider Data Leak Incident,KB-01947,1,KB-01947,1,KB-01947,8.143434524536133,1
+EVAL-0052,Human Resources,Assistance Needed for Digital Marketing Challenges,KB-03460,0,KB-00096,0,KB-16164,6.373101711273193,1
+EVAL-0053,Technical Support,Problem with SaaS Platform,KB-03482,1,KB-15973,1,KB-15973,9.204497337341309,1
+EVAL-0054,Human Resources,Successfully Incorporating Figma into Digital Branding Initiatives,KB-00481,0,KB-07211,0,KB-04525,6.2632551193237305,0
+EVAL-0055,Customer Service,Problems with Healthcare Data Accessibility,KB-04040,0,KB-10837,1,KB-10837,6.667559623718262,1
+EVAL-0056,Sales and Pre-Sales,Issues Setting Up AWS EC2 Security Group,KB-05918,0,KB-01464,0,KB-14841,1.0010074377059937,0
+EVAL-0057,General Inquiry,Services for Data Analytics,KB-04125,1,KB-04125,1,KB-04125,10.562453269958496,1
+EVAL-0058,IT Support,Boost Security in Medical Systems,KB-03809,1,KB-03809,1,KB-03809,8.24266242980957,1
+EVAL-0059,Service Outages and Maintenance,Reported Issue,KB-02001,0,KB-13292,0,KB-02001,5.987026214599609,0
+EVAL-0060,Returns and Exchanges,Query Regarding Smart Home Products,KB-01851,1,KB-04073,1,KB-01851,8.599956512451172,1
