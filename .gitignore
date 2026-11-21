@@ -32,3 +32,4 @@ models/distilbert*/
 !data/eval_test_set_60.csv
 !day17_retrieval_summary_table.csv
 !day17_retrieval_benchmark_results.csv
+!data/day18_scored_sheet_30.csv
