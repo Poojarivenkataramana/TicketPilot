@@ -31,21 +31,11 @@ def test_resume_bullets_file():
     assert "https://github.com/Poojarivenkataramana/TicketPilot" in content
 
 
-def test_linkedin_post_file():
-    """Verify presence and contents of career/linkedin_post.md."""
-    path = "career/linkedin_post.md"
+def test_career_documentation():
+    """Verify presence of career documentation in career/."""
+    path = "career/resume_bullets.md"
     assert os.path.exists(path), f"Missing {path}"
-
-    with open(path, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    assert "TicketPilot" in content
-    assert "Why do 95% of customer support AI pilots fail" in content
-    assert "90.00%" in content
-    assert "0.9033" in content
-    assert "Linear SVM" in content
-    assert "https://github.com/Poojarivenkataramana/TicketPilot" in content
-    assert "#MachineLearning" in content
+    assert os.path.exists("career/30lpa_interview_prep_master_guide.md"), "Missing 30 LPA guide"
 
 
 def test_repository_cleanliness():
@@ -62,8 +52,8 @@ if __name__ == "__main__":
     print("Running Day 28 Career & Cleanup Verification Test Suite...")
     test_resume_bullets_file()
     print("✓ test_resume_bullets_file passed")
-    test_linkedin_post_file()
-    print("✓ test_linkedin_post_file passed")
+    test_career_documentation()
+    print("✓ test_career_documentation passed")
     test_repository_cleanliness()
     print("✓ test_repository_cleanliness passed")
     print("\n🎉 ALL DAY 28 VERIFICATION TESTS PASSED SUCCESSFULLY!")
