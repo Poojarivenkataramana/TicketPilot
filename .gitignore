@@ -21,6 +21,9 @@ ENV/
 # Vector Database
 chroma_db/
 
+# Logs
+logs/*.log
+
 # CSV datasets and binary embeddings (keep raw/intermediate data local, track results)
 *.csv
 *.npy

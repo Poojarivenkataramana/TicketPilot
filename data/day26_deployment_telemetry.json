@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "timestamp": "2026-11-22T05:04:04Z",
+  "links": {
+    "streamlit_ui": "http://localhost:8501",
+    "fastapi_swagger": "http://localhost:8000/docs",
+    "fastapi_health": "http://localhost:8000/health",
+    "fastapi_redoc": "http://localhost:8000/redoc"
+  },
+  "memory_profile": {
+    "fastapi_rss_mb": 597.3,
+    "streamlit_rss_mb": 19.1,
+    "combined_rss_mb": 616.4,
+    "budget_limit_mb": 1024,
+    "within_budget": true,
+    "budget_utilization_pct": 60.2
+  },
+  "smoke_tests": {
+    "api_health_code": 200,
+    "ui_status_code": 200,
+    "triage_endpoint_ok": true
+  },
+  "pids": {
+    "api_pid": 12270,
+    "ui_pid": 12271
+  }
+}
