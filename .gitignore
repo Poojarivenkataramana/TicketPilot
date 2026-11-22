@@ -40,4 +40,6 @@ models/distilbert*/
 !day19_latency_per_ticket.csv
 !data/day24_batch_100_input.csv
 !data/day24_batch_100_results.csv
+!data/knowledge_base_clean.csv
+!data/test.csv
 !logs/routing_decisions.csv
