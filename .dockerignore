@@ -1,0 +1,28 @@
+# Git
+.git
+.gitignore
+
+# Virtual Environments
+myenv/
+venv/
+ENV/
+env/
+
+# Python cache & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.ipynb_checkpoints/
+.DS_Store
+
+# Temporary outputs
+tmp/
+*.log
+
+# Large training datasets not required at inference runtime
+aa_dataset-tickets-multi-lang-5-2-50-version.csv
+dataset-tickets-multi-lang3-4k.csv
+dataset-tickets-multi-lang-4-20k.csv
+cleaned_tickets.csv
+data/train.csv
+data/val.csv

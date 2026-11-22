@@ -5,10 +5,10 @@
   "auto_draft_rate_pct": 10.0,
   "human_review_rate_pct": 90.0,
   "avg_confidence_pct": 39.3,
-  "avg_latency_ms": 760.13,
+  "avg_latency_ms": 784.16,
   "sample_record": {
-    "log_id": "LOG-926999D5",
-    "timestamp": "2026-11-21T15:14:37.552650Z",
+    "log_id": "LOG-DFEB2425",
+    "timestamp": "2026-11-22T04:57:04.748903Z",
     "ticket_id": "AUDIT-0001",
     "subject": "Concerns About Billing Statements",
     "body_preview": "Noted discrepancies in recent billing statements, which may be due to data entry errors or recent sy...",
@@ -23,6 +23,6 @@
     "requires_human_approval": true,
     "citations": "[KB-13862], [KB-13862], [KB-13862], [KB-13862], [KB-13862], [KB-13862]",
     "draft_preview": "Hello,  Thank you for contacting customer support. We are happy to assist you with your inquiry.  Acknowledging the issu...",
-    "latency_ms": 1094.53
+    "latency_ms": 886.88
   }
 }

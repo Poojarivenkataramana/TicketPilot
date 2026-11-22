@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  # Unified TicketPilot Container (FastAPI + Streamlit in one container)
+  ticketpilot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ticketpilot:latest
+    container_name: ticketpilot_app
+    ports:
+      - "8000:8000"  # FastAPI REST API & Swagger UI (/docs)
+      - "8501:8501"  # Streamlit Support Workspace
+    environment:
+      - PORT_API=8000
+      - PORT_UI=8501
+    volumes:
+      - ./logs:/app/logs  # Persistent audit logging for routing decisions
+    restart: unless-stopped
+    command: ["both"]
